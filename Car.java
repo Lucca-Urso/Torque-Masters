@@ -3,7 +3,13 @@ import java.util.Scanner;
 public class Car {
     Scanner sc = new Scanner(System.in);
 
-    //Atributos do carro, influênciados pelas escolhas das demais componentes do carro
+    private Engine engine;
+    private Brakes brakes;
+    private Tires tires;
+    private Chassis chassis;
+    private Suspension suspension;
+    private BodyPaint bodyPaint;
+
     private double cost;
     private double consumption;
     private double weight;
@@ -12,183 +18,21 @@ public class Car {
     private double handling;
     private double brakesPower;
 
-    //Classes do carro, contém personalização dos atributos internos que impactam na performace do carro
-    class Engine {
-        private String engineType;
-        private int cylinderNumber;
-        private double cylinders;
-        private String aspiration;
-        private String fuel;
-        private String engineMaterial;
-        private String traction;
-
-        Engine(String engineType, double cylinders, String aspiration, String fuel, String engineMaterial, String traction) {
-            //Coleta dos valores dos atributos do tipo do motor
-            //tipo do motor
-            switch (engineType) {
-                case "Em linha":
-                    System.out.println("Enter engine cylinder number:");
-                    cylinderNumber = sc.nextInt();
-
-                    break;
-                    
-
-                case "Boxer":
-                    System.out.println("Enter engine cylinder number:");
-                    cylinderNumber = sc.nextInt();
-                    
-                    break;
-
-                case "V":
-                    System.out.println("Enter engine cylinder number:");
-                    cylinderNumber = sc.nextInt();
-
-                    break;
-            
-                default:
-                    break;
-            }
-
-            //aspiração
-            switch (aspiration) {
-                case "aspirado naturalmente":
-                    
-                    break;
-
-                case "turbo compressor":
-                    
-                    break;
-
-                case "super compressor":
-                    
-                    break;
-            
-                default:
-                    break;
-            }
-
-            //tipo do combustivel
-            switch (fuel) {
-                case "gasolina":
-                    
-                    break;
-
-                case "diesel":
-                    
-                    break;
-            
-                default:
-                    break;
-            }
-
-            //material do motor
-            switch (engineMaterial) {
-                case "ferro fundido":
-                    
-                    break;
-
-                case "liga de aluminio":
-                    
-                    break;
-
-                case "liga de titanio":
-                    
-                    break;
-            
-                default:
-                    break;
-            }
-
-            //tipo de tração
-            switch (traction) {
-                case "traseira":
-                    
-                    break;
-            
-                case "dianteira":
-                    
-                    break;
-                
-                case "integral":
-                    
-                    break;
-
-                default:
-                    break;
-            }
-
-            
-
-
-
-            //passagem de valores para os atributos do construtores
-            this.engineType = engineType;
-            this.cylinders = cylinders;
-            this.aspiration = aspiration;
-            this.fuel = fuel;
-            this.engineMaterial = engineMaterial;
-            this.traction = traction;
-        }
-
-        public String toString() {
-            return String.format("-------------------Car-------------------\n1 - Engine:\nType: %s; Cylinders: %f; Aspiration: %s; Fuel: %s; Material: %s" + 
-            "; Traction: %s", engineType, cylinders, aspiration, fuel, engineMaterial, traction);
-        }
+    Car (Engine engine, Brakes brakes, Tires tires, Chassis chassis, Suspension suspension, BodyPaint bodyPaint) {
+        this.engine = engine;
+        this.brakes = brakes;
+        this.tires = tires;
+        this.chassis = chassis;
+        this.suspension = suspension;
+        this.bodyPaint = bodyPaint;
     }
 
-    class Brakes {
-        private String brakeType;
-
-        Brakes() {
-            
-        }
+    public String toString() {
+        return "------------------------------Car------------------------------\n" +
+                engine.toString() + brakes.toString() + tires.toString() + chassis.toString() + suspension.toString() + bodyPaint.toString() +
+                "\n------------------------------Stats------------------------------\n";
     }
 
-    class Tires {
-        private String tiresType;
-
-        Tires() {
-
-        }
-    }
-
-    class Chassis {
-        private String modelType;
-
-        Chassis() {
-
-        }
-    }
-
-    class Suspension {
-        private String suspensionType;
-
-        Suspension() {
-
-        }
-    }
-
-    class BodyPaint {
-        private String color;
-
-        BodyPaint() {
-
-        }
-    }
-
-    //Construtor do carro, ja aplica todas as fórmulas de acordo com os componentes selecionados
-    Car (String engineType, double cylinders, String aspiration, String fuel, String engineMaterial, String traction) {
-        Engine carEngine = new Engine(engineType, cylinders, aspiration, fuel, engineMaterial, traction);
-        Brakes carBrakes = new Brakes();
-        Tires carTires = new Tires();
-        Chassis carChassis = new Chassis();
-        Suspension carSuspension = new Suspension();
-        BodyPaint carBodyPaint = new BodyPaint();
-
-        System.out.println(carEngine.toString());
-    }
-
-    //Método main para teste das classes inicialmente, posteriormente realizar testes através de interfaces gráficas
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         
@@ -218,12 +62,16 @@ public class Car {
         System.out.println("Enter car chassis color: ");
         String color = sc.nextLine();
 
-        Car subaru = new Car(engineType, cylinders, aspiration, fuel, engineMaterial, traction);
-        
+        Engine carEngine = new Engine(engineType, cylinders, aspiration, fuel, engineMaterial, traction);
+        Brakes carBrakes = new Brakes(brakes);
+        Tires carTires = new Tires(tires);
+        Chassis carChassis = new Chassis(chassis);
+        Suspension carSuspension = new Suspension(suspension);
+        BodyPaint carBodyPaint = new BodyPaint(color);
 
+        sc.close();
 
-        
-        
-        
+        Car subaru = new Car(carEngine, carBrakes, carTires, carChassis, carSuspension, carBodyPaint);
+        System.out.println(subaru.toString());
     }
 }

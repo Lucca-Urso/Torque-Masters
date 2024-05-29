@@ -8,19 +8,19 @@ public class Chassis {
     public double setCost() {
         switch (chassisModel) {
             case "suv":
-                return 8000;
+                return 12000;
                 
             case "sedan":
-                return 11000;
+                return 14000;
 
             case "esportivo":
-                return 15500;
+                return 20000;
 
             case "hatchback":
-                return 6500;
+                return 10000;
 
             case "coupe":
-                return 13000;
+                return 17000;
                
             default:
                 return 0;

@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Car {
     Scanner sc = new Scanner(System.in);
 
+    //Componentes do carro
     private Engine engine;
     private Brakes brakes;
     private Tires tires;
@@ -10,6 +11,7 @@ public class Car {
     private Suspension suspension;
     private BodyPaint bodyPaint;
 
+    //Atributos do carro
     private double cost;
     private double consumption;
     private double weight;
@@ -18,6 +20,7 @@ public class Car {
     private double handling;
     private double brakesPower;
 
+    //Construtor
     Car (Engine engine, Brakes brakes, Tires tires, Chassis chassis, Suspension suspension, BodyPaint bodyPaint) {
         this.engine = engine;
         this.brakes = brakes;
@@ -27,6 +30,7 @@ public class Car {
         this.bodyPaint = bodyPaint;
     }
 
+    //Calcular o valor dos atributos
     public void setStats() {
         cost = brakes.setCost() + tires.setCost() + chassis.setCost() + suspension.setCost() + bodyPaint.setCost();
         consumption = 12;
@@ -37,6 +41,7 @@ public class Car {
         brakesPower = brakes.setBrake();
     }
 
+    //Método para exibição no terminal (Provisório)
     public String toString() {
         return "------------------------------Car------------------------------\n" +
                 engine.toString() + brakes.toString() + tires.toString() + chassis.toString() + suspension.toString() + bodyPaint.toString() +
@@ -46,6 +51,7 @@ public class Car {
                 cost, consumption, weight, maxSpeed, acceleration, handling, brakesPower);
     }
 
+    //Teste em terminal através da main (Provisório)
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         

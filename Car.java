@@ -27,16 +27,29 @@ public class Car {
         this.bodyPaint = bodyPaint;
     }
 
+    public void setStats() {
+        cost = brakes.setCost() + tires.setCost() + chassis.setCost() + suspension.setCost() + bodyPaint.setCost();
+        consumption = 12;
+        weight = brakes.setWeight() + tires.setWeight() + suspension.setWeight();
+        maxSpeed = 45;
+        acceleration = suspension.setAcceleration();
+        handling = tires.setHandling() + suspension.setHandling();
+        brakesPower = brakes.setBrake();
+    }
+
     public String toString() {
         return "------------------------------Car------------------------------\n" +
                 engine.toString() + brakes.toString() + tires.toString() + chassis.toString() + suspension.toString() + bodyPaint.toString() +
-                "\n------------------------------Stats------------------------------\n";
+                "\n------------------------------Stats------------------------------\n" + 
+                String.format("A - Cost: %.0f\nB - Consumption: %.0f\nC - Weight: %.0f\n" + 
+                "D - Max Speed: %.0f\nE - Acceleration: %.0f\nF - Handling: %.0f\nG - Brakes: %.0f",
+                cost, consumption, weight, maxSpeed, acceleration, handling, brakesPower);
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         
-        System.out.println("--------------------Engine Informations--------------------\n");
+        System.out.println("--------------------Engine Informations--------------------");
         System.out.println("Enter engine type: ");
         String engineType = sc.nextLine();
         System.out.println("Enter cylinders: ");
@@ -50,7 +63,7 @@ public class Car {
         System.out.println("Enter traction type: ");
         String traction = sc.nextLine();
 
-        System.out.println("\n--------------------Car Components--------------------\n");
+        System.out.println("\n--------------------Car Components--------------------");
         System.out.println("Enter car brake type: ");
         String brakes = sc.nextLine();
         System.out.println("Enter car tires type: ");
@@ -71,7 +84,9 @@ public class Car {
 
         sc.close();
 
-        Car subaru = new Car(carEngine, carBrakes, carTires, carChassis, carSuspension, carBodyPaint);
-        System.out.println(subaru.toString());
+        Car carrao = new Car(carEngine, carBrakes, carTires, carChassis, carSuspension, carBodyPaint);
+        carrao.setStats();
+
+        System.out.println(carrao.toString());
     }
 }

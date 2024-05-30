@@ -24,6 +24,25 @@ public class Suspension {
         }
     }
 
+    public double setBrake() {
+        switch (suspensionType) {
+            case "popular":
+                return 0.9;
+                
+            case "esportivo":
+                return 1;
+
+            case "corrida":
+                return 1.1;
+
+            case "rally":
+                return 0.8;
+               
+            default:
+                return 0;
+        }
+    }
+
     public double setCost() {
         switch (suspensionType) {
             case "popular":
@@ -47,16 +66,16 @@ public class Suspension {
     public double setHandling() {
         switch (suspensionType) {
             case "popular":
-                return 2000;
+                return 0.6;
                 
             case "esportivo":
-                return 3000;
+                return 0.8;
 
             case "corrida":
-                return 5000;
+                return 1;
 
             case "rally":
-                return 3000;
+                return 0.8;
                
             default:
                 return 0;
@@ -67,16 +86,16 @@ public class Suspension {
     public double setAcceleration() {
         switch (suspensionType) {
             case "popular":
-                return 2000;
+                return 0.9;
                 
             case "esportivo":
-                return 3000;
+                return 1.05;
 
             case "corrida":
-                return 5000;
+                return 1.15;
 
             case "rally":
-                return 3000;
+                return 0.85;
                
             default:
                 return 0;

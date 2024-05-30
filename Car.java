@@ -17,6 +17,8 @@ public class Car {
     private double weight;
     private double maxSpeed;
     private double acceleration;
+    private double torque;
+    private double power;
     private double handling;
     private double brakesPower;
 
@@ -32,13 +34,17 @@ public class Car {
 
     //Calcular o valor dos atributos
     public void setStats() {
-        cost = brakes.setCost() + tires.setCost() + chassis.setCost() + suspension.setCost() + bodyPaint.setCost();
-        consumption = 12;
-        weight = brakes.setWeight() + tires.setWeight() + suspension.setWeight();
-        maxSpeed = 45;
-        acceleration = suspension.setAcceleration();
-        handling = tires.setHandling() + suspension.setHandling();
-        brakesPower = brakes.setBrake();
+        cost = engine.setCost() + brakes.setCost() + tires.setCost() + chassis.setCost() + suspension.setCost() + bodyPaint.setCost();
+        consumption = engine.setConsumption();
+        weight = engine.setWeight() + brakes.setWeight() + tires.setWeight() + chassis.setWeight() + suspension.setWeight();
+        power = engine.setHorsePower();
+        torque = (((Math.pow(power - 470, 2)) / 800) + power - 200) * (4.2 / 3);
+        maxSpeed = (power / torque) * tires.setDiameter() * 8;
+        acceleration = 12;
+        handling = (engine.setHandling() + tires.setHandling() + chassis.setHandling() + suspension.setHandling()) / 4;
+
+        double frictionCoef = (brakes.setBrake() + tires.setBrake() + chassis.setBrake() + suspension.setBrake()) / 4;
+        brakesPower = (160 / frictionCoef) / 55.56;
     }
 
     //Método para exibição no terminal (Provisório)
@@ -58,6 +64,8 @@ public class Car {
         System.out.println("--------------------Engine Informations--------------------");
         System.out.println("Enter engine type: ");
         String engineType = sc.nextLine();
+        System.out.println("Enter cylinder ammount: ");
+        double cylinderAmmount = Double.parseDouble(sc.nextLine());
         System.out.println("Enter cylinders: ");
         Double cylinders = Double.parseDouble(sc.nextLine());
         System.out.println("Enter engine aspiration type: ");
@@ -81,7 +89,7 @@ public class Car {
         System.out.println("Enter car chassis color: ");
         String color = sc.nextLine();
 
-        Engine carEngine = new Engine(engineType, cylinders, aspiration, fuel, engineMaterial, traction);
+        Engine carEngine = new Engine(engineType, cylinderAmmount, cylinders, aspiration, fuel, engineMaterial, traction);
         Brakes carBrakes = new Brakes(brakes);
         Tires carTires = new Tires(tires);
         Chassis carChassis = new Chassis(chassis);

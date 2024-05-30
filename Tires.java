@@ -5,19 +5,38 @@ public class Tires {
         this.tireType = tireType;
     }
 
+    public double setDiameter() {
+        switch (tireType) {
+            case "popular":
+                return 35;
+                
+            case "esportivo":
+                return 45;
+            
+            case "corrida":
+                return 60;
+            
+            case "off-road":    
+                return 50;
+               
+            default:
+                return 0;
+        }
+    }
+
     public double setWeight() {
         switch (tireType) {
             case "popular":
-                return 58;
+                return 24;
                 
             case "esportivo":
-                return 48;
+                return 32;
             
             case "corrida":
-                return 36;
+                return 32;
             
-            case "off-road":
-                return 52;
+            case "off-road":    
+                return 40;
                
             default:
                 return 0;
@@ -52,11 +71,9 @@ public class Tires {
             case "esportivo":
                 return 1;
             
-
             case "corrida":
                 return 1.5;
             
-
             case "off-road":
                 return 2;
                
@@ -69,18 +86,16 @@ public class Tires {
     public double setHandling() {
         switch (tireType) {
             case "popular":
-                return 50;
+                return 0.6;
                 
             case "esportivo":
-                return 40;
-            
+                return 0.8;
 
             case "corrida":
-                return 30;
+                return 1;
             
-
             case "off-road":
-                return 20;
+                return 0.9;
                
             default:
                 return 0;

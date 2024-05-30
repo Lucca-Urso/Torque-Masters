@@ -63,9 +63,8 @@ public class Brakes {
                 return 0;
         }
     }
-
+    
     public String toString() {
         return String.format("\n2 - Brakes: %s", brakeType);
     }
-
 }

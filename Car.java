@@ -65,9 +65,9 @@ public class Car {
         System.out.println("Enter engine type: ");
         String engineType = sc.nextLine();
         System.out.println("Enter cylinder ammount: ");
-        double cylinderAmmount = Double.parseDouble(sc.nextLine());
+        int cylinderAmmount = Integer.parseInt(sc.nextLine());
         System.out.println("Enter cylinders: ");
-        Double cylinders = Double.parseDouble(sc.nextLine());
+        double cylinders = Double.parseDouble(sc.nextLine());
         System.out.println("Enter engine aspiration type: ");
         String aspiration = sc.nextLine();
         System.out.println("Enter fuel type: ");

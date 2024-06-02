@@ -1,13 +1,13 @@
 public class Engine {
     private String engineType;
-    private double cylindersAmmount;
+    private int cylindersAmmount;
     private double cylinders;
     private String aspiration;
     private String fuel;
     private String engineMaterial;
     private String traction;
 
-    Engine(String engineType, double cylindersAmmount, double cylinders, String aspiration, String fuel, String engineMaterial, String traction) {
+    Engine(String engineType, int cylindersAmmount, double cylinders, String aspiration, String fuel, String engineMaterial, String traction) {
         //passagem de valores para os atributos do construtores
         this.engineType = engineType;
         this.cylindersAmmount = cylindersAmmount;
@@ -142,7 +142,7 @@ public class Engine {
             case "dianteira":
                 return 0.85;
             
-            case "integral":
+            case "integral"://
                 return 1;
         
             default:

@@ -1,5 +1,3 @@
-package org.example;
-
 public class Chassis {
     private String chassisModel;
 

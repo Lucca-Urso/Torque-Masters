@@ -1,5 +1,3 @@
-package org.example;
-
 public class Engine {
     private String engineType;
     private int cylindersAmmount;
@@ -240,7 +238,7 @@ public class Engine {
     }
 
     public String toString() {
-        return String.format("1 - Engine -> Type: %s; Cylinder Ammount: %f" + 
+        return String.format("1 - Engine -> Type: %s; Cylinder Ammount: %d" + 
         "Cylinders: %.1f; Aspiration: %s; Fuel: %s; Material: %s; Traction: %s",
         engineType, cylindersAmmount, cylinders, aspiration, fuel, engineMaterial, traction);
     }

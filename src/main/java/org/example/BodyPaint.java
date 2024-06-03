@@ -1,5 +1,3 @@
-package org.example;
-
 public class BodyPaint {
     private String bodyPaintColor;
 

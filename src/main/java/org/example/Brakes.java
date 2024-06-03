@@ -1,5 +1,3 @@
-package org.example;
-
 public class Brakes {
     private String brakeType;
 

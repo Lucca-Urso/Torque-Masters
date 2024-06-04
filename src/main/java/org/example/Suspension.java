@@ -1,7 +1,17 @@
+package org.example;
+
 public class Suspension {
     private String suspensionType;
 
     Suspension(String suspensionType) {
+        this.suspensionType = suspensionType;
+    }
+
+    public String getSuspensionType(){
+        return suspensionType;
+    }
+
+    public void setSuspensionType(String suspensionType) {
         this.suspensionType = suspensionType;
     }
 

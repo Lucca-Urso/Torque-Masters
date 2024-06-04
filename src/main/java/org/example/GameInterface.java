@@ -1,3 +1,5 @@
+package org.example;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -5,6 +7,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.concurrent.Flow;
 import java.awt.Font;
 import java.awt.Cursor;
@@ -443,7 +449,7 @@ public class GameInterface extends JFrame implements ActionListener {
         bodyPaintPanel.add(colorBlack);
 
         // Buttons
-        dataBaseButton = new PixelatedButton("Data BaS|se");
+        dataBaseButton = new PixelatedButton("Data Base");
         menuButton = new PixelatedButton("Menu");
         statsButton = new PixelatedButton("Stats");
         exitButton = new PixelatedButton("Exit");
@@ -576,11 +582,19 @@ public class GameInterface extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        int c = 0;
+        Connection conn = null;
+        Conector bd = new Conector();
+        JFrame fr = new JFrame();
+        try {
+            conn = bd.conectar();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
         // Data base 
         if (e.getSource() == dataBaseButton) {
-            System.out.println("Working");
+           GameInterface.mostrarCarros(conn);
         }
-
         // Retorna para o menu principal da aplicação
         if (e.getSource() == menuButton) {
             cardLayout.show(menuPanel, "carPanel");
@@ -597,7 +611,10 @@ public class GameInterface extends JFrame implements ActionListener {
 
             Car carrao = new Car(carEngine, carBrakes, carTires, carChassis, carSuspension, carBodyPaint);
             carrao.setStats();
-            System.out.println(carrao.toString());
+            carEngine.incluir(conn);
+            carrao.incluir(conn);
+            ShowPane.show(fr, carrao.toString());
+            c++;
         }
 
         if (e.getSource() == exitButton) {
@@ -973,6 +990,31 @@ public class GameInterface extends JFrame implements ActionListener {
             colorCar = "Black";
             bodyPaintButton.setEnabled(false);
             cardLayout.show(menuPanel, "carPanel");
+        }
+    }
+
+    public static void mostrarCarros(Connection conn) {
+        JFrame fr = new JFrame();
+        String sql = "SELECT id_engine, brakes, tires, chassis, suspension FROM cars";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs =  pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                int id_engine = rs.getInt("id_engine");
+                String brakes = rs.getString("brakes");
+                String tires = rs.getString("tires");
+                String chassis = rs.getString("chassis");
+                String suspension = rs.getString("suspension");
+
+
+                String carInfo = String.format("Car{id_engine='%s', brakes='%s', tires='%s', chassis='%s', suspension='%s'}",
+                        id_engine, brakes, tires, chassis, suspension);
+
+                ShowPane.show(fr, carInfo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

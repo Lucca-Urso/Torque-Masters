@@ -1,7 +1,17 @@
+package org.example;
+
 public class Chassis {
     private String chassisModel;
 
     Chassis(String chassisModel) {
+        this.chassisModel = chassisModel;
+    }
+
+    public String getChassisModel() {
+        return chassisModel;
+    }
+
+    public void setChassisModel(String chassisModel) {
         this.chassisModel = chassisModel;
     }
 

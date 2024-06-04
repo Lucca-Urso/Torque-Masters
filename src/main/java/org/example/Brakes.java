@@ -1,7 +1,17 @@
+package org.example;
+
 public class Brakes {
     private String brakeType;
 
     Brakes(String brakeType) {
+        this.brakeType = brakeType;
+    }
+
+    public String getBrakeType() {
+        return brakeType;
+    }
+
+    public void setBrakeType(String brakeType) {
         this.brakeType = brakeType;
     }
 

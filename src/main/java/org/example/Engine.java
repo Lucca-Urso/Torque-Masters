@@ -1,4 +1,12 @@
+package org.example;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Engine {
+    private int id;
     private String engineType;
     private int cylindersAmmount;
     private double cylinders;
@@ -15,6 +23,70 @@ public class Engine {
         this.aspiration = aspiration;
         this.fuel = fuel;
         this.engineMaterial = engineMaterial;
+        this.traction = traction;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getEngineType() {
+        return engineType;
+    }
+
+    public int getCylindersAmmount() {
+        return cylindersAmmount;
+    }
+
+    public double getCylinders() {
+        return cylinders;
+    }
+
+    public String getAspiration() {
+        return aspiration;
+    }
+
+    public String getFuel() {
+        return fuel;
+    }
+
+    public String getEngineMaterial() {
+        return engineMaterial;
+    }
+
+    public String getTraction() {
+        return traction;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setEngineType(String engineType) {
+        this.engineType = engineType;
+    }
+
+    public void setCylindersAmmount(int cylindersAmmount) {
+        this.cylindersAmmount = cylindersAmmount;
+    }
+
+    public void setCylinders(double cylinders) {
+        this.cylinders = cylinders;
+    }
+
+    public void setAspiration(String aspiration) {
+        this.aspiration = aspiration;
+    }
+
+    public void setFuel(String fuel) {
+        this.fuel = fuel;
+    }
+
+    public void setEngineMaterial(String engineMaterial) {
+        this.engineMaterial = engineMaterial;
+    }
+
+    public void setTraction(String traction) {
         this.traction = traction;
     }
 
@@ -254,9 +326,164 @@ public class Engine {
     }
 
     public String toString() {
-        return String.format("1 - Engine -> Type: %s; Cylinder Ammount: %d; " + 
+        return String.format("Engine -> Type: %s; Cylinder Ammount: %d; " +
         "Cylinders: %.1f; Aspiration: %s; Fuel: %s; Material: %s; Traction: %s",
         engineType, cylindersAmmount, cylinders, aspiration, fuel, engineMaterial, traction);
     }
-  
+
+    public void incluir(Connection conn){
+        String sqlInsert = "INSERT INTO Engs(enginetype, cylamt, cyl, aspiration, fuel, enginematerial, traction) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement stm = null;
+
+        try{
+            conn.setAutoCommit(false);
+            stm = conn.prepareStatement(sqlInsert);
+            stm.setString(1, getEngineType());
+            stm.setInt(2, getCylindersAmmount());
+            stm.setDouble(3, getCylinders());
+            stm.setString(4, getAspiration());
+            stm.setString(5, getFuel());
+            stm.setString(6, getEngineMaterial());
+            stm.setString(7, getTraction());
+            stm.execute();
+            conn.commit();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            try{
+                conn.rollback();
+            }
+            catch (SQLException e1){
+                System.out.print(e1.getStackTrace());
+            }
+        }
+        finally{
+            if(stm != null){
+                try{
+                    stm.close();
+                }
+                catch (SQLException e1){
+                    System.out.print(e1.getStackTrace());
+                }
+            }
+        }
+    }
+
+    public void excluir(Connection conn, int id){
+        String sqlDelete = "DELETE FROM Engs WHERE id = ?";
+        PreparedStatement stm = null;
+
+        try{
+            conn.setAutoCommit(false);
+            stm = conn.prepareStatement(sqlDelete);
+            stm.setInt(0, id);
+            stm.execute();
+            conn.commit();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            try{
+                conn.rollback();
+            }
+            catch (SQLException e1){
+                System.out.print(e1.getStackTrace());
+            }
+        }
+        finally{
+            if(stm != null){
+                try{
+                    stm.close();
+                }
+                catch (SQLException e1){
+                    System.out.print(e1.getStackTrace());
+                }
+            }
+        }
+    }
+
+    public void atualizar(Connection conn, int id){
+        String sqlUpdate = "UPDATE Engs SET enginetype = ?, cylamt = ?, cyl = ?, aspiration = ?, fuel = ?, enginematerial = ?, traction = ? WHERE id = ?";
+        PreparedStatement stm = null;
+
+        try{
+            conn.setAutoCommit(false);
+            stm = conn.prepareStatement(sqlUpdate);
+            stm.setString(1, getEngineType());
+            stm.setInt(2, getCylindersAmmount());
+            stm.setDouble(3, getCylinders());
+            stm.setString(4, getAspiration());
+            stm.setString(5, getFuel());
+            stm.setString(6, getEngineMaterial());
+            stm.setString(7, getTraction());
+            stm.execute();
+            conn.commit();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            try{
+                conn.rollback();
+            }
+            catch(SQLException e1){
+                System.out.print(e1.getStackTrace());
+            }
+        }
+        finally{
+            if(stm != null){
+                try{
+                    stm.close();
+                }
+                catch(SQLException e1){
+                    System.out.print(e1.getStackTrace());
+                }
+            }
+        }
+    }
+
+    public void carregar(Connection conn, int id) {
+        String sqlSelect = "SELECT enginetype, cylamt, cyl, aspiration, fuel, enginematerial, traction FROM Engs WHERE id = ?";
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try{
+            stm = conn.prepareStatement(sqlSelect);
+            stm.setInt(0, id);
+            rs = stm.executeQuery();
+            if(rs.next()){
+                setEngineType(rs.getString(1));
+                setCylindersAmmount(rs.getInt(2));
+                setCylinders(rs.getDouble(3));
+                setAspiration(rs.getString(4));
+                setFuel(rs.getString(5));
+                setEngineMaterial(rs.getString(6));
+                setTraction(rs.getString(7));
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            try{
+                conn.rollback();
+            }
+            catch (SQLException e1){
+                System.out.print(e1.getStackTrace());
+            }
+        }
+        finally{
+            if(rs != null){
+                try{
+                    rs.close();
+                }
+                catch (SQLException e1){
+                    System.out.print(e1.getStackTrace());
+                }
+            }
+            if(stm != null){
+                try{
+                    stm.close();
+                }
+                catch (SQLException e1){
+                    System.out.print(e1.getStackTrace());
+                }
+            }
+        }
+    }
 }

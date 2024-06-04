@@ -1,7 +1,17 @@
+package org.example;
+
 public class Tires {
     private String tireType;
 
     Tires(String tireType) {
+        this.tireType = tireType;
+    }
+
+    public String getTireType() {
+        return tireType;
+    }
+
+    public void setTireType(String tireType) {
         this.tireType = tireType;
     }
 

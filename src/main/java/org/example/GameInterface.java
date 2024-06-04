@@ -16,17 +16,37 @@ import javax.swing.JPanel;
 import java.awt.Graphics;
 
 public class GameInterface extends JFrame implements ActionListener {
+    // JPanels principais
     JPanel menuPanel;
     JPanel carPanel;
     CustomPanel exhibitionPanel;
     JPanel settingsPanel;
 
+    // Definição das váriaveis para declaração do objeto carro
+    String engineTypeCar;
+    int cylinderAmmount;
+    double cylindersCar;
+    String aspirationCar;
+    String fuelCar;
+    String engineMaterialCar;
+    String tractionCar;
+
+    String brakesCar;
+    String tiresCar;
+    String chassisCar;
+    String suspensionCar;
+    String colorCar;
+    
+    // Card Layout para facilitar a troca entre JPanels na seção de botões
     CardLayout cardLayout;
 
+    // Botões do settingPanel (superior)
     PixelatedButton dataBaseButton;
     PixelatedButton menuButton;
+    PixelatedButton statsButton;
     PixelatedButton exitButton;
 
+    // Botões do carPanel (inferior)
     PixelatedButton engineButton;
         PixelatedButton engineType;
             PixelatedButton inlineEngine;
@@ -75,7 +95,7 @@ public class GameInterface extends JFrame implements ActionListener {
         PixelatedButton popularTires;
         PixelatedButton sportTires;
         PixelatedButton raceTires;
-        PixelatedButton ceramicTires;
+        PixelatedButton offRoadTires;
 
     PixelatedButton chassisButton;
         PixelatedButton suvChassis; 
@@ -99,6 +119,7 @@ public class GameInterface extends JFrame implements ActionListener {
     Color appColor = new Color(13, 6, 40);
     Color buttonColor = new Color(103, 124, 163);
 
+    // Panel customizado para inserção de imagem de background
     public class CustomPanel extends JPanel {
     private Image backgroundImage;
 
@@ -111,6 +132,7 @@ public class GameInterface extends JFrame implements ActionListener {
         }
     }
 
+    // Exibição da imagem de fundo
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -120,6 +142,7 @@ public class GameInterface extends JFrame implements ActionListener {
     }
 }
 
+    // Botão customizado
     class PixelatedButton extends JButton {
         public PixelatedButton(String label) {
             super(label);
@@ -132,6 +155,7 @@ public class GameInterface extends JFrame implements ActionListener {
             this.setCursor(new Cursor(Cursor.HAND_CURSOR));
         }
 
+        // Exibição do botão customizado
         @Override
         protected void paintComponent(Graphics g) {
             if (getModel().isPressed()) {
@@ -150,6 +174,7 @@ public class GameInterface extends JFrame implements ActionListener {
         }
     }
 
+    // Construtor da interface gráfica do jogo
     GameInterface() {
         // Card Layout
         cardLayout = new CardLayout();
@@ -160,7 +185,7 @@ public class GameInterface extends JFrame implements ActionListener {
         settingsPanel = new JPanel();
         settingsPanel.setBackground(appColor);
         settingsPanel.setPreferredSize(new Dimension(900, 75));
-        settingsPanel.setLayout(new FlowLayout(0, 150, 25));
+        settingsPanel.setLayout(new FlowLayout(0, 110, 25));
 
         // Exhibition Panel
         exhibitionPanel = new CustomPanel("C:\\Users\\Urso\\OneDrive\\Documents\\Programas Computação\\Programas Java\\Torque-Masters\\images\\Garagem_pixelada.jpg");
@@ -354,12 +379,12 @@ public class GameInterface extends JFrame implements ActionListener {
         popularTires = new PixelatedButton("Popular");
         sportTires = new PixelatedButton("Esportivo");
         raceTires = new PixelatedButton("Corrida");
-        ceramicTires = new PixelatedButton("Ceramica");
+        offRoadTires = new PixelatedButton("Off-Road");
 
         tiresPanel.add(popularTires);
         tiresPanel.add(sportTires);
         tiresPanel.add(raceTires);
-        tiresPanel.add(ceramicTires);
+        tiresPanel.add(offRoadTires);
 
         // Chassis Panel
         JPanel chassisPanel = new JPanel();
@@ -420,11 +445,13 @@ public class GameInterface extends JFrame implements ActionListener {
         // Buttons
         dataBaseButton = new PixelatedButton("Data Base");
         menuButton = new PixelatedButton("Menu");
+        statsButton = new PixelatedButton("Stats");
         exitButton = new PixelatedButton("Exit");
 
         // Add buttons to panels
         settingsPanel.add(dataBaseButton);
         settingsPanel.add(menuButton);
+        settingsPanel.add(statsButton);
         settingsPanel.add(exitButton);
 
         carPanel.add(engineButton);
@@ -438,34 +465,89 @@ public class GameInterface extends JFrame implements ActionListener {
         dataBaseButton.addActionListener(this);
         menuButton.addActionListener(this);
         exitButton.addActionListener(this);
+        statsButton.addActionListener(this);
+        
         engineButton.addActionListener(this);
         engineType.addActionListener(this);
-            inlineEngine.addActionListener(this);
-            boxerEngine.addActionListener(this);
-            VEngine.addActionListener(this);
+        inlineEngine.addActionListener(this);
+        boxerEngine.addActionListener(this);
+        VEngine.addActionListener(this);
+        threeCylinders.addActionListener(this);
+        fourCylindersInline.addActionListener(this);
+        fourCylindersBoxer.addActionListener(this);
+        fiveCylinders.addActionListener(this);
+        sixCylindersBoxer.addActionListener(this);
+        sixCylindersV.addActionListener(this);
+        eightCylinders.addActionListener(this);
+        tenCylinders.addActionListener(this);
+        twelveCylinders.addActionListener(this);
         cylinders.addActionListener(this);
+        firstCylinder.addActionListener(this);
+        secondCylinder.addActionListener(this);
+        thirdCylinder.addActionListener(this);
+        fourthCylinder.addActionListener(this);
+        fifthCylinder.addActionListener(this);
+        sixthCylinder.addActionListener(this);
+        seventhCylinder.addActionListener(this);
         aspiration.addActionListener(this);
+        naturalAspiration.addActionListener(this);
+        turboCompressor.addActionListener(this);
+        superCompressor.addActionListener(this);
         fuel.addActionListener(this);
+        gasFuel.addActionListener(this);
+        dieselFuel.addActionListener(this);
         engineMaterial.addActionListener(this);
+        moltedIron.addActionListener(this);
+        aluminiumAlloy.addActionListener(this);
+        titaniumAlloy.addActionListener(this);
         traction.addActionListener(this);
+        rearTraction.addActionListener(this);
+        frontTraction.addActionListener(this);
+        integralTraction.addActionListener(this);
+        
         brakesButton.addActionListener(this);
+        popularBrakes.addActionListener(this);
+        sportBrakes.addActionListener(this);
+        raceBrakes.addActionListener(this);
+        ceramicBrakes.addActionListener(this);
+        
         tiresButton.addActionListener(this);
+        popularTires.addActionListener(this);
+        sportTires.addActionListener(this);
+        raceTires.addActionListener(this);
+        offRoadTires.addActionListener(this);
+        
         chassisButton.addActionListener(this);
+        suvChassis.addActionListener(this);
+        sedanChassis.addActionListener(this);
+        sportChassis.addActionListener(this);
+        hatchbackChassis.addActionListener(this);
+        coupeChassis.addActionListener(this);
+        
         suspensionButton.addActionListener(this);
+        popularSuspension.addActionListener(this);
+        sportSuspension.addActionListener(this);
+        raceSuspension.addActionListener(this);
+        rallySuspension.addActionListener(this);
+        
         bodyPaintButton.addActionListener(this);
+        colorRed.addActionListener(this);
+        colorBlue.addActionListener(this);
+        colorYellow.addActionListener(this);
+        colorBlack.addActionListener(this);
         
         // Add panels to CardLayout
         menuPanel.add(carPanel, "carPanel");
         menuPanel.add(enginePanel, "enginePanel");
-        menuPanel.add(engineTypePanel, "engineType");
-            menuPanel.add(inlinePanel, "inline");
-            menuPanel.add(boxerPanel, "boxer");
-            menuPanel.add(VPanel, "V");
-        menuPanel.add(cylindersPanel, "cylinders");
-        menuPanel.add(aspirationPanel, "aspiration");
-        menuPanel.add(fuelPanel, "fuel");
-        menuPanel.add(engineMaterialPanel, "engineMaterial");
-        menuPanel.add(tractionPanel, "traction");
+            menuPanel.add(engineTypePanel, "engineType");
+                menuPanel.add(inlinePanel, "inline");
+                menuPanel.add(boxerPanel, "boxer");
+                menuPanel.add(VPanel, "V");
+            menuPanel.add(cylindersPanel, "cylinders");
+            menuPanel.add(aspirationPanel, "aspiration");
+            menuPanel.add(fuelPanel, "fuel");
+            menuPanel.add(engineMaterialPanel, "engineMaterial");
+            menuPanel.add(tractionPanel, "traction");
         
         menuPanel.add(brakesPanel, "brakesPanel");
         menuPanel.add(tiresPanel, "tiresPanel");
@@ -498,8 +580,23 @@ public class GameInterface extends JFrame implements ActionListener {
             System.out.println("Working");
         }
 
+        // Retorna para o menu principal da aplicação
         if (e.getSource() == menuButton) {
             cardLayout.show(menuPanel, "carPanel");
+        }
+
+        // Exibe os stats do carro
+        if (e.getSource() == statsButton) {
+            Engine carEngine = new Engine(engineTypeCar, cylinderAmmount, cylindersCar, aspirationCar, fuelCar, engineMaterialCar, tractionCar);
+            Brakes carBrakes = new Brakes(brakesCar);
+            Tires carTires = new Tires(tiresCar);
+            Chassis carChassis = new Chassis(chassisCar);
+            Suspension carSuspension = new Suspension(suspensionCar);
+            BodyPaint carBodyPaint = new BodyPaint(colorCar);
+
+            Car carrao = new Car(carEngine, carBrakes, carTires, carChassis, carSuspension, carBodyPaint);
+            carrao.setStats();
+            System.out.println(carrao.toString());
         }
 
         if (e.getSource() == exitButton) {
@@ -510,60 +607,371 @@ public class GameInterface extends JFrame implements ActionListener {
             cardLayout.show(menuPanel, "enginePanel");
         }
 
+        // --------------------------Engine--------------------------
         if (e.getSource() == engineType) {
             cardLayout.show(menuPanel, "engineType");
         }
 
+        // Inline Engine Type
         if (e.getSource() == inlineEngine) {
             cardLayout.show(menuPanel, "inline");
+            engineTypeCar = "em linha";
+        }
+
+        if (e.getSource() == threeCylinders) {
+            cylinderAmmount = 3;
+            engineType.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == fourCylindersInline) {
+            cylinderAmmount = 4;
+            engineType.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == fiveCylinders) {
+            cylinderAmmount = 5;
+            engineType.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
         }
         
+        // Boxer Engine Type
         if (e.getSource() == boxerEngine) {
             cardLayout.show(menuPanel, "boxer");
+            engineTypeCar = "boxer";
         }
 
+        if (e.getSource() == fourCylindersBoxer) {
+            cylinderAmmount = 4;
+            engineType.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == sixCylindersBoxer) {
+            cylinderAmmount = 6;
+            engineType.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        // V Engine Type
         if (e.getSource() == VEngine) {
             cardLayout.show(menuPanel, "V");
+            engineTypeCar = "V";
         }
 
+        if (e.getSource() == sixCylindersV) {
+            cylinderAmmount = 6;
+            engineType.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == eightCylinders) {
+            cylinderAmmount = 8;
+            engineType.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == tenCylinders) {
+            cylinderAmmount = 10;
+            engineType.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == twelveCylinders) {
+            cylinderAmmount = 12;
+            engineType.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        // Cylinders
         if (e.getSource() == cylinders) {
             cardLayout.show(menuPanel, "cylinders");
         }
 
+        if (e.getSource() == firstCylinder) {
+            cylindersCar = 1.0;
+            cylinders.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == secondCylinder) {
+            cylindersCar = 1.6;
+            cylinders.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == thirdCylinder) {
+            cylindersCar = 2.0;
+            cylinders.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == fourthCylinder) {
+            cylindersCar = 2.4;
+            cylinders.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == fifthCylinder) {
+            cylindersCar = 3.0;
+            cylinders.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == sixthCylinder) {
+            cylindersCar = 3.6;
+            cylinders.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == seventhCylinder) {
+            cylindersCar = 4.2;
+            cylinders.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        // Aspiration
         if (e.getSource() == aspiration) {
             cardLayout.show(menuPanel, "aspiration");
         }
 
+        if (e.getSource() == naturalAspiration) {
+            aspirationCar = "aspirado naturalmente";
+            aspiration.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == turboCompressor) {
+            aspirationCar = "turbo compressor";
+            aspiration.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+        
+        if (e.getSource() == superCompressor) {
+            aspirationCar = "super compressor";
+            aspiration.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        // Fuel
         if (e.getSource() == fuel) {
             cardLayout.show(menuPanel, "fuel");
         }
 
+        if (e.getSource() == gasFuel) {
+            fuelCar = "gasolina";
+            fuel.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == dieselFuel) {
+            fuelCar = "diesel";
+            fuel.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        // Engine Material
         if (e.getSource() == engineMaterial) {
             cardLayout.show(menuPanel, "engineMaterial");
         }
 
-        if (e.getSource() == traction) {
-            cardLayout.show(menuPanel, "traction");
+        if (e.getSource() == moltedIron) {
+            engineMaterialCar = "ferro fundido";
+            engineMaterial.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
         }
 
+        if (e.getSource() == aluminiumAlloy) {
+            engineMaterialCar = "liga de aluminio";
+            engineMaterial.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == titaniumAlloy) {
+            engineMaterialCar = "liga de titanio";
+            engineMaterial.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        // Tração
+        if (e.getSource() == traction) {
+            cardLayout.show(menuPanel, "traction");
+            engineButton.setEnabled(false);
+        }
+
+        if (e.getSource() == rearTraction) {
+            tractionCar = "traseira";
+            traction.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == frontTraction) {
+            tractionCar = "dianteira";
+            traction.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        if (e.getSource() == integralTraction) {
+            tractionCar = "integral";
+            traction.setEnabled(false);
+            cardLayout.show(menuPanel, "enginePanel");
+        }
+
+        // --------------------------Brakes--------------------------
         if (e.getSource() == brakesButton) {
             cardLayout.show(menuPanel, "brakesPanel");
         }
 
+        if (e.getSource() == popularBrakes) {
+            brakesCar = "popular";
+            brakesButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        if (e.getSource() == sportBrakes) {
+            brakesCar = "esportivo";
+            brakesButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        if (e.getSource() == raceBrakes) {
+            brakesCar = "corrida";
+            brakesButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        if (e.getSource() == ceramicBrakes) {
+            brakesCar = "ceramica";
+            brakesButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        // --------------------------Tires--------------------------
         if (e.getSource() == tiresButton) {
             cardLayout.show(menuPanel, "tiresPanel");
         }
 
+        if (e.getSource() == popularTires) {
+            tiresCar = "popular";
+            tiresButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        if (e.getSource() == sportTires) {
+            tiresCar = "esportivo";
+            tiresButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        if (e.getSource() == raceTires) {
+            tiresCar = "corrida";
+            tiresButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        if (e.getSource() == offRoadTires) {
+            tiresCar = "off-road";
+            tiresButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        // --------------------------Chassis--------------------------
         if (e.getSource() == chassisButton) {
             cardLayout.show(menuPanel, "chassisPanel");
         }
 
+        if (e.getSource() == suvChassis) {
+            chassisCar = "suv";
+            chassisButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        if (e.getSource() == sedanChassis) {
+            chassisCar = "sedan";
+            chassisButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        if (e.getSource() == sportChassis) {
+            chassisCar = "esportivo";
+            chassisButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        if (e.getSource() == hatchbackChassis) {
+            chassisCar = "hatchback";
+            chassisButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        if (e.getSource() == coupeChassis) {
+            chassisCar = "coupe";
+            chassisButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+        // --------------------------Suspension--------------------------
         if (e.getSource() == suspensionButton) {
             cardLayout.show(menuPanel, "suspensionPanel");
         }
+        
+        if (e.getSource() == popularSuspension) {
+            suspensionCar = "popular";
+            suspensionButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
 
+        if (e.getSource() == sportSuspension) {
+            suspensionCar = "esportivo";
+            suspensionButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        if (e.getSource() == raceSuspension) {
+            suspensionCar = "corrida";
+            suspensionButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        if (e.getSource() == rallySuspension) {
+            suspensionCar = "rally";
+            suspensionButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        // --------------------------Body Paint--------------------------
         if (e.getSource() == bodyPaintButton) {
             cardLayout.show(menuPanel, "bodyPaintPanel");
+        }
+
+        if (e.getSource() == colorBlack) {
+            colorCar = "Preto";
+            bodyPaintButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        if (e.getSource() == colorRed) {
+            colorCar = "Vermelho";
+            bodyPaintButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        if (e.getSource() == colorBlue) {
+            colorCar = "Azul";
+            bodyPaintButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        if (e.getSource() == colorYellow) {
+            colorCar = "Amarelo";
+            bodyPaintButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
+        }
+
+        if (e.getSource() == colorBlack) {
+            colorCar = "Black";
+            bodyPaintButton.setEnabled(false);
+            cardLayout.show(menuPanel, "carPanel");
         }
     }
 }

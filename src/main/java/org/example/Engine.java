@@ -142,7 +142,7 @@ public class Engine {
             case "dianteira":
                 return 0.85;
             
-            case "integral"://
+            case "integral":
                 return 1;
         
             default:
@@ -182,7 +182,7 @@ public class Engine {
                 break;
         }
 
-        return (20 / carConsumption / 2) - (setWeight() / 1000) - ((cylinders * cylindersAmmount) / 4);
+        return (20 / (carConsumption / 2)) - (setWeight() / 1000) - ((cylinders * cylindersAmmount) / 4);
     }
 
     public double setCost() {
@@ -237,8 +237,24 @@ public class Engine {
         return carCost;
     }
 
+    public double setTractionCoef() {
+        switch (traction) {
+            case "traseira":
+                return 2.5;
+
+            case "dianteira":
+                return 2;
+            
+            case "integral":
+                return 4;
+        
+            default:
+                return 0;
+        }
+    }
+
     public String toString() {
-        return String.format("1 - Engine -> Type: %s; Cylinder Ammount: %d" + 
+        return String.format("1 - Engine -> Type: %s; Cylinder Ammount: %d; " + 
         "Cylinders: %.1f; Aspiration: %s; Fuel: %s; Material: %s; Traction: %s",
         engineType, cylindersAmmount, cylinders, aspiration, fuel, engineMaterial, traction);
     }

@@ -185,7 +185,7 @@ public class GameInterface extends JFrame implements ActionListener {
         settingsPanel = new JPanel();
         settingsPanel.setBackground(appColor);
         settingsPanel.setPreferredSize(new Dimension(900, 75));
-        settingsPanel.setLayout(new FlowLayout(0, 110, 25));
+        settingsPanel.setLayout(new FlowLayout(0, 100, 25));
 
         // Exhibition Panel
         exhibitionPanel = new CustomPanel("C:\\Users\\Urso\\OneDrive\\Documents\\Programas Computação\\Programas Java\\Torque-Masters\\images\\Garagem_pixelada.jpg");
@@ -443,7 +443,7 @@ public class GameInterface extends JFrame implements ActionListener {
         bodyPaintPanel.add(colorBlack);
 
         // Buttons
-        dataBaseButton = new PixelatedButton("Data Base");
+        dataBaseButton = new PixelatedButton("Data BaS|se");
         menuButton = new PixelatedButton("Menu");
         statsButton = new PixelatedButton("Stats");
         exitButton = new PixelatedButton("Exit");
@@ -576,6 +576,7 @@ public class GameInterface extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        // Data base 
         if (e.getSource() == dataBaseButton) {
             System.out.println("Working");
         }
